@@ -10,39 +10,40 @@
 class Solution {
   public:
     Node* segregate(Node* head) {
-        int cnt1=0, cnt2=0, cnt3=0;
-        
-        Node* temp = head;
-        
-        while(temp!=NULL ){
-            if(temp->data== 0){cnt1++; }
-           else if (temp->data== 1){cnt2++;}
-            else if(temp->data== 2){cnt3++;}
-            temp=temp->next;
+        if(head==NULL || head->next==NULL){
+            return head;
         }
-        
-        temp = head;
-        while(temp!=NULL ){
-            if(cnt1>0){
-                temp->data = 0;
-                cnt1--;
-                
-            }
-            else if(cnt2>0){
-                temp->data = 1;
-                cnt2--;
-                
-            }
-            else if(cnt3>0){
-                temp->data=2;
-                cnt3--;
-                
-                
-            }
-            temp= temp->next;
-            
-        }
-        return head;
+       Node* zeroh = new Node(-1);
+       Node* zero = zeroh;
+       Node* oneh = new Node(-1);
+       Node* one = oneh;
+       Node* twoh = new Node(-1);
+       Node* two = twoh;
+       
+       Node* temp = head;
+       
+       while(temp!=NULL){
+           if(temp->data == 1){
+               one->next = temp;
+               one=one->next;
+           }
+           else if(temp->data ==0){
+               zero->next=temp;
+               zero = zero->next;
+           }
+           else if(temp->data == 2){
+               two->next = temp;
+               two=two->next;
+           }
+           temp=temp->next;
+       }
+       two->next=NULL;
+        one->next = twoh->next;
+       zero->next = oneh->next;
+     
+       
+       return zeroh->next;
+       
         
         
     }
